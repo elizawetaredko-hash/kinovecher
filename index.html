@@ -576,7 +576,7 @@ body[data-page="shuf"] .stage { --ph: clamp(150px, calc(100svh - var(--hdr, 92px
   .ticket { top: calc(env(safe-area-inset-top, 0px) + 140px); }
   
 }
-body.favc[data-page="shuf"] .favtop { display: grid; animation: favpop .5s cubic-bezier(.2,.9,.3,1.3); }
+body.favc[data-page="shuf"] .favtop { display: grid; }
 body.favc .ticket { display: none; }
 body.favc .ticket.open { display: flex; z-index: 95; }
 @keyframes favpop { 0% { transform: scale(.4); opacity: 0; } 60% { transform: scale(1.12); opacity: 1; } 100% { transform: none; } }
@@ -1188,7 +1188,7 @@ body.favc .ticket.open { display: flex; z-index: 95; }
     t.style.opacity = '0';
     a.onfinish = done; a.oncancel = done;
   }
-  function startFavTimer() { clearTimeout(favTimer); document.body.classList.remove('favc'); var t = document.getElementById('ticket'); if (t) t.style.opacity = ''; favTimer = setTimeout(collapseFav, 10000); }
+  function startFavTimer() { clearTimeout(favTimer); var t = document.getElementById('ticket'); if (t) { t.style.opacity = ''; t.classList.remove('open'); placeTicket(false); } var b = document.getElementById('favtop'); if (b) b.setAttribute('aria-expanded', 'false'); document.body.classList.add('favc'); }
 
   function setHdr() { var h = document.querySelector('.top2'); if (h) document.documentElement.style.setProperty('--hdr', h.offsetHeight + 'px'); }
   setHdr(); addEventListener('resize', setHdr);
